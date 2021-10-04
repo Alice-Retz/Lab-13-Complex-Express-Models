@@ -19,10 +19,8 @@ describe('demo routes', () => {
       .send(newSpecies)
       .then((res) => {
         expect(res.body).toEqual({
+          ...newSpecies,
           id: '5',
-          order_id: '2',
-          animal_species: 'Sperm Whale',
-          extinct: false,
         });
       });
   });
