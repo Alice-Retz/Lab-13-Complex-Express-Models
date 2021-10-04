@@ -3,19 +3,19 @@ import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 
-describe('demo routes', () => {
+describe('species routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
   it('should save a new species', () => {
     const newSpecies = {
-      order_id: '2',
-      animal_species: 'Sperm Whale',
+      order: '2',
+      species: 'Sperm Whale',
       extinct: false,
     };
     return request(app)
-      .post('/api/v1/species')
+      .post('/api/species')
       .send(newSpecies)
       .then((res) => {
         expect(res.body).toEqual({
