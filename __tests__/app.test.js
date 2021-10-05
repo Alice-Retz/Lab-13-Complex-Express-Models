@@ -42,7 +42,6 @@ describe('species routes', () => {
 
   it('should save a new order', async () => {
     const newOrder = {
-      id: '4',
       order_id: '4',
       order: 'Squamata',
     };
