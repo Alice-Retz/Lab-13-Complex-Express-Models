@@ -40,6 +40,23 @@ describe('species routes', () => {
       });
   });
 
+  it('should save a new order', async () => {
+    const newOrder = {
+      id: '4',
+      order_id: '4',
+      order: 'Squamata',
+    };
+    return request(app)
+      .post('/api/order')
+      .send(newOrder)
+      .then((res) => {
+        expect(res.body).toEqual({
+          ...newOrder,
+          id: '4',
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
