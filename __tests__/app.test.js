@@ -27,14 +27,14 @@ describe('species routes', () => {
 
   it('should return a species by id', async () => {
     const species1 = {
-      id: 1,
+      id: '1',
       order: '1',
       species: 'Thylacine',
       extinct: true,
     };
 
     return request(app)
-      .get('/api/species')
+      .get('/api/species/1')
       .then((res) => {
         expect(res.body).toEqual(species1);
       });
