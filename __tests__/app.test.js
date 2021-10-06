@@ -80,6 +80,25 @@ describe('species routes', () => {
       });
   });
 
+  it('should update an animal by id', async () => {
+    return request(app)
+      .patch('/api/species')
+      .send({
+        id: '1',
+        order: '1',
+        species: 'Tasmanian Tiger',
+        extinct: true,
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          order: '1',
+          species: 'Tasmanian Tiger',
+          extinct: true,
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
