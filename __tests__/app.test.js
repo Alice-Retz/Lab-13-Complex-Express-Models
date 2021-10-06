@@ -56,6 +56,30 @@ describe('species routes', () => {
       });
   });
 
+  it('should return all orders', async () => {
+    return request(app)
+      .get('/api/orders')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: '1',
+            order_id: '1',
+            order: 'Dasyuromorphia',
+          },
+          {
+            id: '2',
+            order_id: '2',
+            order: 'Artiodactyla',
+          },
+          {
+            id: '3',
+            order_id: '3',
+            order: 'Rodentia',
+          },
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
