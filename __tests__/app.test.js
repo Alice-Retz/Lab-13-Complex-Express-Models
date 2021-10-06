@@ -2,6 +2,7 @@ import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
+import Species from '../lib/models/speciesModel.js';
 
 describe('species routes', () => {
   beforeEach(() => {
@@ -89,6 +90,19 @@ describe('species routes', () => {
       .send(patchedSpecies)
       .then((res) => {
         expect(res.body).toEqual(patchedSpecies);
+      });
+  });
+
+  it('should delete a species', async () => {
+    const species2 = await Species.insert({
+      order: '2',
+      species: 'Sperm Whale',
+      extinct: false,
+    });
+    return request(app)
+      .delete(`/api/species/${species2.id}`)
+      .then((res) => {
+        expect(res.body).toEqual({});
       });
   });
 
