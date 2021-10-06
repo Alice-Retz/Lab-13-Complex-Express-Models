@@ -46,7 +46,7 @@ describe('species routes', () => {
       order: 'Squamata',
     };
     return request(app)
-      .post('/api/order')
+      .post('/api/orders')
       .send(newOrder)
       .then((res) => {
         expect(res.body).toEqual({
