@@ -14,9 +14,8 @@ INSERT INTO species (order_id, animal_species, extinct)
 
 CREATE TABLE orders (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT,
     order_name TEXT NOT NULL
 );
 
-INSERT INTO orders (order_id, order_name)
-    VALUES ('1', 'Dasyuromorphia'), ('2', 'Artiodactyla'), ('3', 'Rodentia');
+INSERT INTO orders (order_name)
+    VALUES ('Dasyuromorphia'), ('Artiodactyla'), ('Rodentia');

@@ -42,7 +42,6 @@ describe('species routes', () => {
 
   it('should save a new order', async () => {
     const newOrder = {
-      order_id: '4',
       order: 'Squamata',
     };
     return request(app)
@@ -63,17 +62,14 @@ describe('species routes', () => {
         expect(res.body).toEqual([
           {
             id: '1',
-            order_id: '1',
             order: 'Dasyuromorphia',
           },
           {
             id: '2',
-            order_id: '2',
             order: 'Artiodactyla',
           },
           {
             id: '3',
-            order_id: '3',
             order: 'Rodentia',
           },
         ]);
@@ -81,21 +77,18 @@ describe('species routes', () => {
   });
 
   it('should update an animal by id', async () => {
+    const patchedSpecies = {
+      id: '1',
+      order: '1',
+      species: 'Tasmanian Tiger',
+      extinct: true,
+    };
+
     return request(app)
-      .patch('/api/species')
-      .send({
-        id: '1',
-        order: '1',
-        species: 'Tasmanian Tiger',
-        extinct: true,
-      })
+      .patch('/api/species/1')
+      .send(patchedSpecies)
       .then((res) => {
-        expect(res.body).toEqual({
-          id: '1',
-          order: '1',
-          species: 'Tasmanian Tiger',
-          extinct: true,
-        });
+        expect(res.body).toEqual(patchedSpecies);
       });
   });
 
