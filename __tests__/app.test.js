@@ -106,6 +106,14 @@ describe('species routes', () => {
       });
   });
 
+  it('should return all species and their orders', async () => {
+    return request(app)
+      .get('/api/species')
+      .then((res) => {
+        expect(res.body).toEqual('');
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
