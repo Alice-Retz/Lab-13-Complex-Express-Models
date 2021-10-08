@@ -110,7 +110,9 @@ describe('species routes', () => {
     return request(app)
       .get('/api/species')
       .then((res) => {
-        expect(res.body).toEqual('');
+        expect(res.body).toEqual([
+          { id: 1, name: 'Thylacine', order: 'Dasyuromorphia' },
+        ]);
       });
   });
 
