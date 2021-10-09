@@ -135,6 +135,18 @@ describe('species routes', () => {
       });
   });
 
+  it('should get a count of animals by order', async () => {
+    return request(app)
+      .get('/api/species/count')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { order: 'Dasyuromorphia', species: '2' },
+          { order: 'Artiodactyla', species: '1' },
+          { order: 'Rodentia', species: '1' },
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
