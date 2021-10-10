@@ -136,7 +136,7 @@ describe('species routes', () => {
   });
 
   it('should get a count of animals by order', async () => {
-    return request(app)
+    return await request(app)
       .get('/api/orders/count')
       .then((res) => {
         expect(res.body).toEqual([
@@ -144,6 +144,22 @@ describe('species routes', () => {
           { order: 'Rodentia', species: '1' },
           { order: 'Dasyuromorphia', species: '2' },
         ]);
+      });
+  });
+
+  it("should update a species' extinction status with PATCH", async () => {
+    const patchedSpecies = {
+      id: '1',
+      orderID: '1',
+      species: 'Thylacine',
+      extinct: false,
+    };
+
+    return request(app)
+      .patch('/api/species/1')
+      .send(patchedSpecies)
+      .then((res) => {
+        expect(res.body).toEqual(patchedSpecies);
       });
   });
 
