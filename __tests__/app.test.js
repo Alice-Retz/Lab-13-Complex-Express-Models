@@ -163,6 +163,27 @@ describe('species routes', () => {
       });
   });
 
+  it('should get all species that are NOT extinct', async () => {
+    return await request(app)
+      .get('/api/species/alive')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            species: 'Numbat',
+            extinct: false,
+          },
+          {
+            species: 'Okapi',
+            extinct: false,
+          },
+          {
+            species: 'Jerboa',
+            extinct: false,
+          },
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
