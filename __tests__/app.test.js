@@ -11,7 +11,7 @@ describe('species routes', () => {
 
   it('should save a new species', () => {
     const newSpecies = {
-      order: '2',
+      orderID: '2',
       species: 'Sperm Whale',
       extinct: false,
     };
@@ -29,7 +29,7 @@ describe('species routes', () => {
   it('should return a species by id', async () => {
     const species1 = {
       id: '1',
-      order: '1',
+      orderID: '1',
       species: 'Thylacine',
       extinct: true,
     };
@@ -80,7 +80,7 @@ describe('species routes', () => {
   it('should update an animal by id', async () => {
     const patchedSpecies = {
       id: '1',
-      order: '1',
+      orderID: '1',
       species: 'Tasmanian Tiger',
       extinct: true,
     };
@@ -103,6 +103,84 @@ describe('species routes', () => {
       .delete(`/api/species/${species2.id}`)
       .then((res) => {
         expect(res.body).toEqual({});
+      });
+  });
+
+  it('should return all species and their orders', async () => {
+    return request(app)
+      .get('/api/species')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            species: 'Thylacine',
+            order: 'Dasyuromorphia',
+            extinct: true,
+          },
+          {
+            species: 'Numbat',
+            order: 'Dasyuromorphia',
+            extinct: false,
+          },
+          {
+            species: 'Okapi',
+            order: 'Artiodactyla',
+            extinct: false,
+          },
+          {
+            species: 'Jerboa',
+            order: 'Rodentia',
+            extinct: false,
+          },
+        ]);
+      });
+  });
+
+  it('should get a count of animals by order', async () => {
+    return await request(app)
+      .get('/api/orders/count')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { order: 'Artiodactyla', species: '1' },
+          { order: 'Rodentia', species: '1' },
+          { order: 'Dasyuromorphia', species: '2' },
+        ]);
+      });
+  });
+
+  it("should update a species' extinction status with PATCH", async () => {
+    const patchedSpecies = {
+      id: '1',
+      orderID: '1',
+      species: 'Thylacine',
+      extinct: false,
+    };
+
+    return request(app)
+      .patch('/api/species/1')
+      .send(patchedSpecies)
+      .then((res) => {
+        expect(res.body).toEqual(patchedSpecies);
+      });
+  });
+
+  it('should get all species that are NOT extinct', async () => {
+    return await request(app)
+      .get('/api/species/alive')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            species: 'Numbat',
+            extinct: false,
+          },
+          {
+            species: 'Okapi',
+            extinct: false,
+          },
+          {
+            species: 'Jerboa',
+            extinct: false,
+          },
+        ]);
       });
   });
 
